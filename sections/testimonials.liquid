@@ -112,7 +112,8 @@
   @media screen and (min-width: 750px) {
     .testimonials-grid.slider {
       display: grid !important;
-      grid-template-columns: repeat(var(--columns, 2), 1fr);
+      grid-template-columns: repeat(var(--columns, 2), 1fr) !important;
+      gap: 2rem;
     }
 
     .testimonials-grid.slider .slider__slide {
@@ -121,6 +122,25 @@
       visibility: visible !important;
       position: static !important;
       transform: none !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    .testimonials-slider .slider-buttons {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .testimonials-grid.slider {
+      display: flex !important;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .testimonials-grid.slider .slider__slide {
+      min-width: 100% !important;
+      scroll-snap-align: start;
     }
   }
 </style>
