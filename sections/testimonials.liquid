@@ -108,6 +108,21 @@
   .slider__slide {
     min-width: 0;
   }
+
+  @media screen and (min-width: 750px) {
+    .testimonials-grid.slider {
+      display: grid !important;
+      grid-template-columns: repeat(var(--columns, 2), 1fr);
+    }
+
+    .testimonials-grid.slider .slider__slide {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      position: static !important;
+      transform: none !important;
+    }
+  }
 </style>
 
 {%- style -%}
@@ -170,6 +185,7 @@
           id="Slider-{{ section.id }}"
           aria-live="polite"
           aria-atomic="true"
+          data-columns="{{ section.settings.columns_desktop }}"
         >
           {%- for block in section.blocks -%}
             <div
