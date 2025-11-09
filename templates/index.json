@@ -15,14 +15,16 @@
         "heading_CFMKXm": {
           "type": "heading",
           "settings": {
-            "heading": "<strong>Working MVPs InUnder 3 Weeks</strong>",
+            "desktop_heading": "Desktop Heading",
+            "mobile_heading": "Mobile Heading",
             "heading_size": "hxxl"
           }
         },
         "text_H49LgL": {
           "type": "text",
           "settings": {
-            "text": "We design and build real software fastweb,mobile, andAI productsthat get feedback, prove demand and drive business results.",
+            "desktop_text": "<p>Desktop text content</p>",
+            "mobile_text": "<p>Mobile text content</p>",
             "text_style": "subtitle"
           }
         },
@@ -394,14 +396,16 @@
         "heading_L8kGrj": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
+            "desktop_heading": "Desktop Heading",
+            "mobile_heading": "Mobile Heading",
             "heading_size": "h1"
           }
         },
         "text_TwrUzY": {
           "type": "text",
           "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
+            "desktop_text": "<p>Desktop text content</p>",
+            "mobile_text": "<p>Mobile text content</p>",
             "text_style": "body"
           }
         },
@@ -435,6 +439,63 @@
         "mobile_content_alignment": "center",
         "show_text_below": true
       }
+    },
+    "testimonials_ydNHcL": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_AygaEN": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sarah Johnson",
+            "title": "Marketing Manager",
+            "rating": 5,
+            "text": "Exceptional quality and outstanding customer service. This product has transformed our business!"
+          }
+        },
+        "testimonial_mYdVhK": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Michael Chen",
+            "title": "Founder & CEO",
+            "rating": 5,
+            "text": "Best investment we made this year. The results speak for themselves."
+          }
+        },
+        "testimonial_QdmH9F": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Emily Rodriguez",
+            "title": "Product Designer",
+            "rating": 5,
+            "text": "Incredible experience from start to finish. Highly recommended to anyone!"
+          }
+        },
+        "testimonial_zPjfj8": {
+          "type": "testimonial",
+          "settings": {
+            "author": "David Thompson",
+            "title": "Business Owner",
+            "rating": 5,
+            "text": "Professional, reliable, and exactly what we needed. Five stars!"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_AygaEN",
+        "testimonial_mYdVhK",
+        "testimonial_QdmH9F",
+        "testimonial_zPjfj8"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "title": "Customer Testimonials",
+        "subtitle": "See what our customers are saying",
+        "columns_desktop": 3,
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "color_scheme": "",
+        "text_color": "#000000"
+      }
     }
   },
   "order": [
@@ -446,6 +507,7 @@
     "image_with_text_KCFCXx",
     "collapsible_content_jRNNFy",
     "featured_blog_qjALbW",
-    "image_banner_Te6XtE"
+    "image_banner_Te6XtE",
+    "testimonials_ydNHcL"
   ]
 }
