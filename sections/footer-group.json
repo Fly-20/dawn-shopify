@@ -17,6 +17,7 @@
         "image_ic9zTn": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Group_273.png",
             "image_width": 100,
             "alignment": "center"
           }
@@ -42,7 +43,7 @@
         "text_ahGJqd"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-3",
         "newsletter_enable": false,
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": false,
