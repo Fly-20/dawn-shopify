@@ -141,28 +141,34 @@
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
-          {%- when 'desktop-heading' -%}
-            <h2
-              class="banner__heading {{ block.settings.heading_size }} desktop-only"
-              {{ block.shopify_attributes }}
-            >
-              {{ block.settings.heading }}
-            </h2>
-          {%- when 'mobile-heading' -%}
-            <h2
-              class="banner__heading {{ block.settings.heading_size }} mobile-only"
-              {{ block.shopify_attributes }}
-            >
-              {{ block.settings.heading }}
-            </h2>
-          {%- when 'desktop-text' -%}
-            <div class="banner__text rte {{ block.settings.text_style }} desktop-only" {{ block.shopify_attributes }}>
-              {{ block.settings.text }}
-            </div>
-          {%- when 'mobile-text' -%}
-            <div class="banner__text rte {{ block.settings.text_style }} mobile-only" {{ block.shopify_attributes }}>
-              {{ block.settings.text }}
-            </div>
+          {%- when 'heading' -%}
+            {%- if block.settings.desktop_heading != blank -%}
+              <h2
+                class="banner__heading {{ block.settings.heading_size }} desktop-only"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.desktop_heading }}
+              </h2>
+            {%- endif -%}
+            {%- if block.settings.mobile_heading != blank -%}
+              <h2
+                class="banner__heading {{ block.settings.heading_size }} mobile-only"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.mobile_heading }}
+              </h2>
+            {%- endif -%}
+          {%- when 'text' -%}
+            {%- if block.settings.desktop_text != blank -%}
+              <div class="banner__text rte {{ block.settings.text_style }} desktop-only" {{ block.shopify_attributes }}>
+                {{ block.settings.desktop_text }}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.mobile_text != blank -%}
+              <div class="banner__text rte {{ block.settings.text_style }} mobile-only" {{ block.shopify_attributes }}>
+                {{ block.settings.mobile_text }}
+              </div>
+            {%- endif -%}
           {%- when 'buttons' -%}
             <div
               class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}"
@@ -395,54 +401,19 @@
   ],
   "blocks": [
     {
-      "type": "desktop-heading",
-      "name": "Desktop Heading",
+      "type": "heading",
+      "name": "Heading",
       "limit": 1,
       "settings": [
         {
           "type": "html",
-          "id": "heading",
+          "id": "desktop_heading",
           "default": "<h1>Desktop Heading</h1>",
           "label": "Desktop Heading"
         },
         {
-          "type": "select",
-          "id": "heading_size",
-          "options": [
-            {
-              "value": "h2",
-              "label": "t:sections.all.heading_size.options__1.label"
-            },
-            {
-              "value": "h1",
-              "label": "t:sections.all.heading_size.options__2.label"
-            },
-            {
-              "value": "h0",
-              "label": "t:sections.all.heading_size.options__3.label"
-            },
-            {
-              "value": "hxl",
-              "label": "t:sections.all.heading_size.options__4.label"
-            },
-            {
-              "value": "hxxl",
-              "label": "t:sections.all.heading_size.options__5.label"
-            }
-          ],
-          "default": "h1",
-          "label": "Heading Size"
-        }
-      ]
-    },
-    {
-      "type": "mobile-heading",
-      "name": "Mobile Heading",
-      "limit": 1,
-      "settings": [
-        {
           "type": "html",
-          "id": "heading",
+          "id": "mobile_heading",
           "default": "<h1>Mobile Heading</h1>",
           "label": "Mobile Heading"
         },
@@ -477,46 +448,19 @@
       ]
     },
     {
-      "type": "desktop-text",
-      "name": "Desktop Text",
+      "type": "text",
+      "name": "Text",
       "limit": 1,
       "settings": [
         {
           "type": "html",
-          "id": "text",
+          "id": "desktop_text",
           "default": "<p>Desktop text content</p>",
           "label": "Desktop Text"
         },
         {
-          "type": "select",
-          "id": "text_style",
-          "options": [
-            {
-              "value": "body",
-              "label": "t:sections.image-banner.blocks.text.settings.text_style.options__1.label"
-            },
-            {
-              "value": "subtitle",
-              "label": "t:sections.image-banner.blocks.text.settings.text_style.options__2.label"
-            },
-            {
-              "value": "caption-with-letter-spacing",
-              "label": "t:sections.image-banner.blocks.text.settings.text_style.options__3.label"
-            }
-          ],
-          "default": "body",
-          "label": "Text Style"
-        }
-      ]
-    },
-    {
-      "type": "mobile-text",
-      "name": "Mobile Text",
-      "limit": 1,
-      "settings": [
-        {
           "type": "html",
-          "id": "text",
+          "id": "mobile_text",
           "default": "<p>Mobile text content</p>",
           "label": "Mobile Text"
         },
@@ -599,16 +543,10 @@
       "name": "t:sections.image-banner.presets.name",
       "blocks": [
         {
-          "type": "desktop-heading"
+          "type": "heading"
         },
         {
-          "type": "mobile-heading"
-        },
-        {
-          "type": "desktop-text"
-        },
-        {
-          "type": "mobile-text"
+          "type": "text"
         },
         {
           "type": "buttons"

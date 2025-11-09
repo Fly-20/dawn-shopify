@@ -96,6 +96,21 @@
   .header__custom-button .button {
     min-width: 150px;
   }
+
+  @media screen and (min-width: 750px) {
+    .header__custom-button {
+      justify-content: flex-end;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 1rem;
+    }
+
+    .header {
+      position: relative;
+    }
+  }
 </style>
 
 {%- style -%}
