@@ -16,6 +16,30 @@
   {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
 {% endcomment %}
 
+<style>
+  .article-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .article-card__tag {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.08);
+    color: inherit;
+    padding: 0.35rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .article-card__tag:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+</style>
+
 {%- if article and article != empty -%}
   {%- liquid
     assign ratio = 1
@@ -98,6 +122,13 @@
                   {%- endif -%}
                 </p>
               {%- endif -%}
+              {%- if article.tags.size > 0 -%}
+                <div class="article-card__tags">
+                  {%- for tag in article.tags -%}
+                    <span class="article-card__tag">{{ tag }}</span>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
               <div class="article-card__footer">
                 {%- if article.comments_count > 0 and blog.comments_enabled? -%}
                   <span>{{ 'blogs.article.comments' | t: count: article.comments_count }}</span>
@@ -136,6 +167,13 @@
                   {{ article.content | strip_html | truncatewords: 30 }}
                 {%- endif -%}
               </p>
+            {%- endif -%}
+            {%- if article.tags.size > 0 -%}
+              <div class="article-card__tags">
+                {%- for tag in article.tags -%}
+                  <span class="article-card__tag">{{ tag }}</span>
+                {%- endfor -%}
+              </div>
             {%- endif -%}
             <div class="article-card__footer">
               {%- if article.comments_count > 0 and blog.comments_enabled? -%}

@@ -1,0 +1,365 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .testimonials-section {
+    padding: 2rem 0;
+  }
+
+  .testimonials-slider {
+    position: relative;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 0 2rem;
+  }
+
+  .testimonial-card {
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .testimonial-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 3px solid var(--color-primary);
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--color-text);
+    flex-grow: 1;
+  }
+
+  .testimonial-author {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .testimonial-rating {
+    color: #ffc107;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .slider-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .slider-button {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+
+  .slider-button:hover {
+    background: var(--color-primary-dark);
+  }
+
+  .slider-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(var(--columns, 2), 1fr);
+    }
+  }
+</style>
+
+{%- style -%}
+  .testimonials-section {
+    background-color: var(--color-background);
+  }
+
+  .testimonials-wrapper {
+    color: {{ section.settings.text_color }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonials-grid {
+      --columns: {{ section.settings.columns_desktop }};
+    }
+  }
+{%- endstyle -%}
+
+<div class="testimonials-section color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <h2 class="section-heading text-center">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="section-subtitle text-center">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <div class="testimonials-wrapper">
+      <slideshow-component
+        class="testimonials-slider"
+        data-autoplay="{{ section.settings.auto_rotate }}"
+        data-speed="{{ section.settings.change_slides_speed }}"
+      >
+        <div class="slider-buttons">
+          <button
+            type="button"
+            class="slider-button slider-button--prev"
+            name="previous"
+            aria-label="Previous testimonial"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="Next testimonial"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div
+          class="testimonials-grid slider"
+          id="Slider-{{ section.id }}"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {%- for block in section.blocks -%}
+            <div
+              class="testimonial-card slider__slide"
+              id="Slide-{{ section.id }}-{{ forloop.index }}"
+              {{ block.shopify_attributes }}
+              role="group"
+              aria-label="{{ forloop.index }} of {{ forloop.length }}"
+            >
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 200 }}"
+                  alt="{{ block.settings.author | escape }}"
+                  class="testimonial-image"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="testimonial-image" style="background: #e0e0e0;"></div>
+              {%- endif -%}
+
+              {%- if block.settings.rating > 0 -%}
+                <div class="testimonial-rating">
+                  {%- for i in (1..block.settings.rating) -%}
+                    ★
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.text != blank -%}
+                <p class="testimonial-text">{{ block.settings.text }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.author != blank -%}
+                <div class="testimonial-author">{{ block.settings.author }}</div>
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <div style="font-size: 0.85rem; color: var(--color-text-secondary);">{{ block.settings.title }}</div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </slideshow-component>
+
+      {%- if request.design_mode -%}
+        <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+        <style>
+          .testimonials-slider .slider__slide[aria-hidden='true'] {
+            visibility: hidden;
+          }
+        </style>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'component-slider.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'component-slideshow.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Customer Testimonials",
+      "label": "Section Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "See what our customers are saying",
+      "label": "Section Subtitle"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "label": "Testimonials per row (Desktop)"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Auto-rotate testimonials",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Auto-rotate speed",
+      "default": 5
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Author image"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "default": "John Doe",
+          "label": "Author name"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "CEO, Company Name",
+          "label": "Author title"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Star rating"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "default": "This is an amazing product! Highly recommended.",
+          "label": "Review text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sarah Johnson",
+            "title": "Marketing Manager",
+            "text": "Exceptional quality and outstanding customer service. This product has transformed our business!"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author": "Michael Chen",
+            "title": "Founder & CEO",
+            "text": "Best investment we made this year. The results speak for themselves."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author": "Emily Rodriguez",
+            "title": "Product Designer",
+            "text": "Incredible experience from start to finish. Highly recommended to anyone!"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author": "David Thompson",
+            "title": "Business Owner",
+            "text": "Professional, reliable, and exactly what we needed. Five stars!"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

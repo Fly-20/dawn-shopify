@@ -1,5 +1,29 @@
 {{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
 
+<style>
+  .image-with-text__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+
+  .image-with-text__tag {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.08);
+    color: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .image-with-text__tag:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+</style>
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -73,6 +97,18 @@
                   >
                     {{ block.settings.heading }}
                   </h2>
+                {%- when 'tags' -%}
+                  {%- if block.settings.tags != blank -%}
+                    <div class="image-with-text__tags" {{ block.shopify_attributes }}>
+                      {%- assign tags_array = block.settings.tags | split: ',' -%}
+                      {%- for tag in tags_array -%}
+                        {%- assign trimmed_tag = tag | strip -%}
+                        {%- if trimmed_tag != blank -%}
+                          <span class="image-with-text__tag">{{ trimmed_tag }}</span>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
                 {%- when 'caption' -%}
                   <p
                     class="image-with-text__text image-with-text__text--caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }} {{ block.settings.text_style }}"
@@ -360,6 +396,20 @@
           ],
           "default": "h1",
           "label": "t:sections.all.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "tags",
+      "name": "Tags",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "tags",
+          "default": "Ecommerce, AI",
+          "label": "Tags (comma separated)",
+          "placeholder": "e.g. Ecommerce, AI, Technology"
         }
       ]
     },
