@@ -20,10 +20,28 @@
             "text": "Welcome to our store",
             "link": ""
           }
+        },
+        "announcement_fUPnQC": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
+        "announcement_wpEtNx": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement_fUPnQC",
+        "announcement_wpEtNx"
       ],
       "settings": {
         "auto_rotate": false,
